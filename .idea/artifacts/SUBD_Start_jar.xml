@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SUBD_Start:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SUBD_Start_jar</output-path>
+    <root id="archive" name="SUBD_Start.jar">
+      <element id="module-output" name="Information_System" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.50.3.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
