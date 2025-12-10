@@ -1,12 +1,49 @@
 import Window.*;
+import Window.Studing.ExerciseLoader;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.File;
+import java.nio.file.Files;
+import java.sql.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        System.out.println("🧪 Тестирование подключения к БД...");
+
+        try {
+            // Тестируем прямое подключение
+            String url = "jdbc:mysql://localhost:3306/information_system";
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("✅ Успешное подключение к БД!");
+
+            // Проверяем базу данных
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DATABASE() as db");
+            if (rs.next()) {
+                System.out.println("📊 Подключены к базе: " + rs.getString("db"));
+            }
+
+            // Проверяем таблицы
+            rs = stmt.executeQuery("SHOW TABLES");
+            System.out.println("📋 Таблицы в базе:");
+            while (rs.next()) {
+                System.out.println("   - " + rs.getString(1));
+            }
+
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("❌ Ошибка подключения: " + e.getMessage());
+            System.out.println("💡 Проверьте:");
+            System.out.println("   1. Запущен ли MySQL в XAMPP");
+            System.out.println("   2. Правильный ли пароль в config.properties");
+            System.out.println("   3. Существует ли база данных information_system");
+        }
+//        java.awt.Desktop.getDesktop().browse(new java.net.URI("http://localhost/phpmyadmin/"));
+
         Anything.UserSession session = Anything.UserSession.getInstance();
 
         System.out.println("Статус сессии: " + session.isLoggedIn());
@@ -19,73 +56,9 @@ public class Main {
             System.out.println("Сессия не найдена, открываем окно входа");
             new Entrance();
         }
-//        System.out.println("=== Принудительное создание таблицы ===");
-//
-//        try {
-//            Connection conn = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/information_system", "root", "");
-//
-//            Statement stmt = conn.createStatement();
-//
-//            // Удаляем таблицу если существует (очистка)
-//            try {
-//                stmt.execute("DROP TABLE IF EXISTS users");
-//                System.out.println("🗑️ Старая таблица удалена");
-//            } catch (Exception e) {
-//                System.out.println("ℹ️ Таблицы для удаления не было");
-//            }
-//
-//            // Создаем новую таблицу
-//            String sql = """
-//                CREATE TABLE users (
-//                    id INT PRIMARY KEY AUTO_INCREMENT,
-//                    username VARCHAR(50) NOT NULL UNIQUE,
-//                    password VARCHAR(255) NOT NULL,
-//                    passwordWord VARCHAR(255) NOT NULL,
-//                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//                )
-//                """;
-//
-//            stmt.execute(sql);
-//            System.out.println("✅ Таблица 'users' создана!");
-//
-//            // Проверяем
-//            ResultSet rs = stmt.executeQuery("SHOW TABLES LIKE 'users'");
-//            if (rs.next()) {
-//                System.out.println("🎉 ТАБЛИЦА СОЗДАНА! Можно запускать приложение!");
-//            }
-//
-//            conn.close();
-//        } catch (Exception e) {
-//            System.out.println("❌ Ошибка: " + e.getMessage());
-//        }
-//    }
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            System.out.println("MySQL драйвер найден!");
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("MySQL драйвер НЕ найден!");
-//        }
+        System.out.println(
+                ExerciseLoader.class.getResource("/exercises/cpp/exercise_4.json")
+        );
 
-//        Entrance entrance = new Entrance();
-
-//        String url = "jdbc:sqlite:test.db";
-//
-//        try (Connection conn = DriverManager.getConnection(url)) {
-//            System.out.println("Соединение с SQLite установлено!");
-//        } catch (SQLException e) {
-//            System.out.println("Ошибка: " + e.getMessage());
-//        }
-//
-//        String[] fontNames = GraphicsEnvironment
-//                .getLocalGraphicsEnvironment()
-//                .getAvailableFontFamilyNames();
-//
-//        System.out.println("Доступные шрифты:");
-//        for (String fontName : fontNames) {
-//            System.out.println(fontName);
-//        }
-//
-//        System.out.println("Всего шрифтов: " + fontNames.length);
     }
 }
