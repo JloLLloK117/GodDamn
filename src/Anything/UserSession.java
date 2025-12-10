@@ -1,6 +1,8 @@
 package Anything;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class UserSession {
@@ -13,9 +15,24 @@ public class UserSession {
     private int windowX = -1;
     private int windowY = -1;
     private static final String SESSION_DIR = "user_sessions";
+    private String lastOpenedBook;
+    private int lastPage;
 
     private UserSession(){
         loadSession();
+    }
+
+    public void setLastOpenedBook(String lastOpenedBook) {
+        this.lastOpenedBook = lastOpenedBook;
+        saveUserSettings();
+    }
+
+    public String getLastOpenedBook() {
+        return lastOpenedBook;
+    }
+
+    public int getLastPage() {
+        return lastPage;
     }
 
     public static UserSession getInstance(){
@@ -104,6 +121,8 @@ public class UserSession {
             prop.setProperty("windowHeight", Integer.toString(windowHeight));
             prop.setProperty("windowX", Integer.toString(windowX));
             prop.setProperty("windowY", Integer.toString(windowY));
+            prop.setProperty("lastOpenedBook", lastOpenedBook!=null?lastOpenedBook:"");
+            prop.setProperty("lastPage", Integer.toString(lastPage));
             prop.store(os, "Window settings for user: " + username);
             System.out.println("Сохранены настройки для " + username + ": " + windowWidth + "x" + windowHeight);
         }
@@ -133,6 +152,8 @@ public class UserSession {
             this.windowHeight = Integer.parseInt(prop.getProperty("windowHeight", "600"));
             this.windowX = Integer.parseInt(prop.getProperty("windowX", "-1"));
             this.windowY = Integer.parseInt(prop.getProperty("windowY", "-1"));
+            this.lastOpenedBook = prop.getProperty("lastOpenedBook", null);
+            this.lastPage = Integer.parseInt(prop.getProperty("lastPage", "0"));
 
             System.out.println("Загружены настройки для " + username + ": " + windowWidth + "x" + windowHeight);
         }
