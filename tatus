@@ -1,0 +1,37 @@
+.idea/artifacts/SUBD_Start_jar.xml
+Information_System.iml
+README.txt
+books/Java.pdf
+"books/\320\241++_rukovodstvo.pdf"
+config.properties
+icepdf-core-6.2.2.jar
+icepdf-viewer-6.2.2.jar
+jbig2-imageio-3.0.4.jar
+json-20231013.jar
+src/Anything/DataBase.java
+src/Anything/PDFReader.java
+src/Anything/UserSession.java
+src/Main.java
+src/Window/Entrance.java
+src/Window/Helper.java
+src/Window/PasswordRecovery.java
+src/Window/SrcWindow.java
+src/Window/Studing/CppQuestions.java
+src/Window/Studing/Exercise.java
+src/Window/Studing/ExerciseLoader.java
+src/Window/Studing/JavaQuestions.java
+src/Window/Studing/TestQuestion.java
+src/Window/Studing/Textbook.java
+src/Window/Studing/Training.java
+user_session.properties
+user_sessions/Andrey Andrey_settings.properties
+user_sessions/Andrey I.V._settings.properties
+user_sessions/Andrey Ilya_settings.properties
+user_sessions/Ilya R.V._settings.properties
+user_sessions/Test priloj_settings.properties
+user_sessions/Test project 2_settings.properties
+user_sessions/Test project 3_settings.properties
+user_sessions/Test project_settings.properties
+"user_sessions/\320\220\320\275\320\264\321\200\320\265\320\271 \320\230.\320\222._settings.properties"
+"user_sessions/\320\237\320\276\320\273\321\202\320\276\321\201 \320\232\321\200\321\203\321\202\320\276\320\271 \320\277\320\260\321\206\320\260\320\275_settings.properties"
+"user_sessions/\321\205\321\203\320\270\320\270\320\270_settings.properties"
