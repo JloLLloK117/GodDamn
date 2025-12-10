@@ -15,10 +15,12 @@ import java.io.IOException;
 public class Entrance implements ActionListener {
 
     JFrame frame;
-    JButton button,button1;
+    JButton button;
     BackGround bg;
     JTextField jTextField;
     JPasswordField jPasswordField;
+    JLabel createAccount = new JLabel();
+
     public Entrance(){
 
         try{
@@ -80,7 +82,7 @@ public class Entrance implements ActionListener {
         button.addActionListener(this);
         bg.add(button,constraints);
 
-        JLabel createAccount = new JLabel("Создать аккаунт",SwingConstants.CENTER);
+        createAccount = new JLabel("Создать аккаунт",SwingConstants.CENTER);
         createAccount.setFont(new Font("Bahnschrift", Font.BOLD, 15));
         createAccount.setForeground(Color.black);
         createAccount.addMouseListener(new MouseAdapter() {
@@ -98,7 +100,7 @@ public class Entrance implements ActionListener {
         passwordRecovery.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                PasswordRecovery passwordRecovery = new PasswordRecovery();
+                new PasswordRecovery();
                 frame.dispose();
             }
         });
@@ -126,7 +128,7 @@ public class Entrance implements ActionListener {
         String username = jTextField.getText().trim();
         String password = new String(jPasswordField.getPassword()).trim();
 
-        if(e.getSource() == button1){
+        if(e.getSource() == createAccount){
             RgstrWindow rgstrWindow = new RgstrWindow();
             frame.dispose();
         }

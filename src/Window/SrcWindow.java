@@ -1,8 +1,9 @@
 package Window;
 
 import Anything.*;
-import Window.*;
-import Window.Documents.Documents;
+import Window.Studing.Exercise;
+import Window.Studing.Textbook;
+import Window.Studing.Training;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,15 +36,30 @@ public class SrcWindow{
         jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
         jFrame.add(jPanel,BorderLayout.NORTH);
 
-        JButton jB1 = new JButton("Главная");
-        JButton jB2 = new JButton("Документы");
-        JButton jB3 = new JButton("Инструкция");
+        JButton training =  new JButton("Обучение");
+        training.setOpaque(false);
+        training.setFocusable(false);
+        JButton jB1 = new JButton("Учебники");
+        jB1.setOpaque(false);
+        jB1.setFocusable(false);
+        JButton jB2 = new JButton("Упражнения");
+        jB2.setOpaque(false);
+        jB2.setFocusable(false);
+        JButton jB3 = new JButton("Поддержка");
+        jB3.setOpaque(false);
+        jB3.setFocusable(false);
         JButton jB4 = new JButton("Ссылки");
+        jB4.setOpaque(false);
+        jB4.setFocusable(false);
         JButton jB5 = new JButton("Выход из аккаунта");
+        jB5.setOpaque(false);
+        jB5.setFocusable(false);
         JButton jB6 = new JButton("Выход из приложения");
-
+        jB6.setOpaque(false);
+        jB6.setFocusable(false);
 
         jPanel.setOpaque(false);
+        jPanel.add(training);
         jPanel.add(jB1);
         jPanel.add(jB2);
         jPanel.add(jB3);
@@ -51,10 +67,26 @@ public class SrcWindow{
         jPanel.add(jB5);
         jPanel.add(jB6);
 
+        training.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Training();
+                jFrame.dispose();
+            }
+        });
+
+        jB1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Textbook();
+                jFrame.dispose();
+            }
+        });
+
         jB2.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                new Documents();
+                new Exercise();
                 jFrame.dispose();
             }
         });
@@ -72,6 +104,13 @@ public class SrcWindow{
             @Override
             public void actionPerformed(ActionEvent e){
                 System.exit(0);
+            }
+        });
+        jB3.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new Helper();
+                jFrame.dispose();
             }
         });
 

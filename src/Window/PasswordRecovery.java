@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Objects;
+
+import static Anything.DataBase.hashPassword;
 
 public class PasswordRecovery implements ActionListener {
 
@@ -104,38 +107,52 @@ public class PasswordRecovery implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        String usernameRecovery = username.getText().trim();
-        String passwordWordRecovery = passwordWord.getText().trim();
-        String passwordCreate = new String(passwordField.getPassword()).trim();
-
         if (e.getSource() == jButton2) {
             new Entrance();
             frame.dispose();
-        }
-
-        if (usernameRecovery.isEmpty() || passwordWordRecovery.isEmpty() || passwordCreate.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Заполните все поля.");
             return;
         }
 
-        if (passwordCreate.length() <= 6) {
-            JOptionPane.showMessageDialog(frame, "Пароль должен быть больше 6 символов.");
-            return;
-        }
+        if (e.getSource() == jButton) {
+            String usernameRecovery = username.getText().trim();
+            String passwordWordRecovery = passwordWord.getText().trim();
+            String passwordCreate = new String(passwordField.getPassword()).trim();
 
-        if (!DataBase.isExist(usernameRecovery)) {
-            JOptionPane.showMessageDialog(frame, "Пользователь не найден.");
-            return;
-        }
+            // 1. Проверка на заполненность
+            if (usernameRecovery.isEmpty() || passwordWordRecovery.isEmpty() || passwordCreate.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Заполните все поля.");
+                return;
+            }
 
-        if (DataBase.resetPassword(usernameRecovery, passwordWordRecovery, passwordCreate)) {
-            JOptionPane.showMessageDialog(frame, "Пароль успешно изменен!");
-            new Entrance();
-            frame.dispose();
-        } else {
-            JOptionPane.showMessageDialog(frame, "Неверное кодовое слово или пользователь не найден.");
+            // 2. Проверка длины пароля
+            if (passwordCreate.length() <= 6) {
+                JOptionPane.showMessageDialog(frame, "Пароль должен быть больше 6 символов.");
+                return;
+            }
 
+            // 3. Проверка существования пользователя
+            if (!DataBase.isExist(usernameRecovery)) {
+                JOptionPane.showMessageDialog(frame, "Пользователь не найден.");
+                return;
+            }
 
+            // 4. Проверка кодового слова
+            String storedPasswordWord = DataBase.getPasswordWord(usernameRecovery);
+            if (storedPasswordWord == null ||
+                    !storedPasswordWord.equals(hashPassword(passwordWordRecovery))) {
+                JOptionPane.showMessageDialog(frame, "Неверное кодовое слово.");
+                return;
+            }
+
+            // 5. Теперь можно сбросить пароль
+            boolean success = DataBase.resetPassword(usernameRecovery, passwordWordRecovery, passwordCreate);
+            if (success) {
+                JOptionPane.showMessageDialog(frame, "Пароль успешно изменён!");
+                new Entrance();
+                frame.dispose();
+            } else {
+                JOptionPane.showMessageDialog(frame, "Не удалось изменить пароль. Попробуйте позже.");
+            }
         }
     }
 }
